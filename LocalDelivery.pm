@@ -3,8 +3,9 @@ package Email::LocalDelivery;
 require 5.005_62;
 use strict;
 use warnings;
+use Email::FolderType qw(folder_type);
 use Carp;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 NAME
 
@@ -47,24 +48,20 @@ sub deliver {
 
     }
     my %to_deliver;
-    push @{$to_deliver{type_of($_)}}, $_ for @boxes;
+    push @{$to_deliver{folder_type($_)}}, $_ for @boxes;
+    my @rv;
     for my $method (keys %to_deliver) {
         eval "require Email::LocalDelivery::$method";
         croak "Couldn't load a module to handle $method mailboxes" if $@;
+        push @rv,
         "Email::LocalDelivery::$method"->deliver($mail,
                                                 @{$to_deliver{$method}});
     }
-}
-
-sub type_of {
-    local $_ = shift;
-    return "Maildir" if m{/$};
-    return "MH"      if m{/\.$};
-    return "Maildir" if -d;
-    return "Mbox";
+    return @rv;
 }
 
 1;
+
 __END__
 
 =head1 COPYRIGHT AND LICENSE

@@ -1,6 +1,14 @@
 Revision history for Perl extension Email::LocalDelivery.
 
+0.02  Wednesday 16th April, 2003
+        - now depends on Email::Simple and Email::FolderType
+        - changes to make code -w clean
+        - http://rt.cpan.org/NoAuth/Bug.html?id=2356
+        - http://rt.cpan.org/NoAuth/Bug.html?id=2357
+
 0.01  Fri Feb 21 13:26:07 2003
 	- original version; created by h2xs 1.2 with options
 		-AX -n Email::LocalDelivery
 
+For full details consult:
+http://cvs.simon-cozens.org/viewcvs.cgi/Email-LocalDelivery/?cvsroot=Email

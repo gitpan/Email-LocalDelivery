@@ -1,3 +1,4 @@
+use strict;
 package Email::LocalDelivery::Maildir;
 use Email::Simple;
 use File::Path;
@@ -9,13 +10,12 @@ use Sys::Hostname; (my $HOSTNAME = hostname) =~ s/\..*//;
 
 sub deliver {
     my ($class, $mail, @files) = @_;
-    my @rv;
     $mail = Email::Simple->new($mail) 
         unless ref $mail eq "Email::Simple"; # For when we recurse
     $class->fix_lines($mail);
     $class->update_time();
 
-    $temp_file = $class->write_temp($mail, @files) || return ();
+    my $temp_file = $class->write_temp($mail, @files) || return ();
     
     my @written = $class->write_links($mail, $temp_file, @files);
     unlink $temp_file;
@@ -25,7 +25,8 @@ sub deliver {
 sub fix_lines {
     my ($class, $mail) = @_;
     return if $mail->header("Lines");
-    $mail->header("Lines", scalar split /\n/, $mail->body);
+    my @lines = split /\n/, $mail->body;
+    $mail->header("Lines", scalar @lines);
 }
 
 sub update_time {
@@ -40,10 +41,9 @@ sub write_temp {
     for my $file (@files) {
         $file =~ s{/$}{};
         my $tmp_file = $class->get_filename_in($file."/tmp");
-        mkpath([map { "$file/$_" } qw(tmp new cur)]) or next;
+        eval { mkpath([map { "$file/$_" } qw(tmp new cur)]); 1 } or next;
         $class->write_message($mail, $tmp_file)
             and return $tmp_file;
-            use File::Path;
     }
     return;
 }
@@ -61,11 +61,11 @@ sub get_filename_in {
 
 sub write_links {
     my ($class, $mail, $temp_file, @files) = @_;
-    my $rv;
+    my @rv;
     for my $file (@files) {
         $file =~ s{/$}{};
         my $new_location = $class->get_filename_in($file."/new");
-        mkpath([map { "$file/$_" } qw(tmp new cur)]) or next;
+        eval { mkpath([map { "$file/$_" } qw(tmp new cur)]); 1 } or next;
         if (link $temp_file, $new_location) {
             push @rv, $new_location;
         } else {
@@ -80,7 +80,7 @@ sub write_links {
 
 sub write_message {
     my ($class, $mail, $file) = @_;
-    open my $fh, ">$file" || return;
-    print $mail->as_string;
+    open my $fh, ">$file" or return;
+    print $fh $mail->as_string;
     return close $fh;
 }
