@@ -6,4 +6,4 @@ MANIFEST
 Makefile.PL
 t/00compile.t
 t/mbox.t
-META.yml                                 Module meta-data (added by MakeMaker)
+META.yml

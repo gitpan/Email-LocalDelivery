@@ -1,4 +1,7 @@
-Revision history for Perl extension Email::LocalDelivery.
+0.07 Friday 14th November, 2003
+	http://rt.cpan.org/NoAuth/Bug.html?id=4359 bug caused by flawed
+	implementation of #2480.  the test suite is woefully poor not
+	to have caught this
 
 0.06 Wednesday 29th October, 2003
 	http://rt.cpan.org/NoAuth/Bug.html?id=2480 quoting of From_

@@ -4,7 +4,7 @@ use File::Basename;
 use Email::Simple;
 use Fcntl ':flock';
 
-our $VERSION = "1.06";
+our $VERSION = "1.07";
 
 sub deliver {
     my ($class, $mail, @files) = @_;
@@ -30,11 +30,11 @@ sub deliver {
 sub _escape_from_body {
     my ($class, $mail_r) = @_;
 
-    $$mail_r =~ /(.*?)\n\n(.*)/ or return $$mail_r;
-    my ($head, $body) = ($1, $2);
-    $body =~ s/^(From\s)/>$1/g;
+    # breaking encapsulation is evil, but this routine is tricky
+    my ($head, $body) = Email::Simple::_split_head_from_body($$mail_r);
+    $body =~ s/^(From\s)/>$1/gm;
 
-    return $$mail_r = "$head\n\n$body";
+    return $$mail_r = "$head\n$body";
 }
 
 sub _from_line {
