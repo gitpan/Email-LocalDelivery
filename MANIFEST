@@ -2,9 +2,11 @@ Changes
 LocalDelivery.pm
 LocalDelivery/Maildir.pm
 LocalDelivery/Mbox.pm
-MANIFEST
 Makefile.PL
+MANIFEST			This list of files
+META.yml
+README
+t/.cvsignore
 t/00compile.t
 t/mbox.t
 t/test_mbox
-META.yml

@@ -1,12 +1,11 @@
 package Email::LocalDelivery;
-
-require 5.005_62;
+# $Id: LocalDelivery.pm,v 1.16 2004/12/17 17:16:10 cwest Exp $
 use strict;
-use warnings;
+
 use File::Path::Expand qw(expand_filename);
 use Email::FolderType qw(folder_type);
 use Carp;
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 =head1 NAME
 
@@ -19,9 +18,7 @@ Email::LocalDelivery - Deliver a piece of email - simply
 
 =head1 DESCRIPTION
 
-This is the second module produced by the "Perl Email Project", a
-reaction against the complexity and increasing bugginess of the
-C<Mail::*> modules. It delivers an email to a list of mailboxes.
+This module delivers an email to a list of mailboxes.
 
 =head1 METHODS
 
@@ -70,7 +67,13 @@ __END__
 
 Copyright 2003 by Simon Cozens
 
+Copyright 2004 by Casey West
+
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
+
+=head1 CONTACT
+
+http://pep.kwiki.org
 
 =cut

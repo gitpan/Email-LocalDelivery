@@ -1,3 +1,9 @@
+0.09    2004-12-17
+
+  - New author.
+  - Allow for subclassing flexibility in Email::LocalDelivery::Mbox.
+  - New contact information.
+
 0.08 Saturday 29th May, 2004
 	Make fix_lines not be a no-op (Toby Johnson)
 

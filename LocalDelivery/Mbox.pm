@@ -10,21 +10,33 @@ sub deliver {
     my ($class, $mail, @files) = @_;
     my @rv;
     for my $file (@files) {
-        my $dir = dirname($file);
-        next if ! -d $dir and not mkpath($dir);
-
-        open my $fh, ">> $file"               or next;
-        $class->getlock($fh)                  || next;
-        seek $fh, 0, 2;
+        my $fh = $class->_open_fh($file) or next;
         print $fh "\n" if tell($fh) > 0;
         print $fh $class->_from_line(\$mail); # Avoid passing $mail where poss.
         print $fh $class->_escape_from_body(\$mail);
         print $fh "\n" unless $mail =~ /\n$/;
-        $class->unlock($fh)                   || next;
-        close $fh                             or next;
+        $class->_close_fh($fh) || next;
         push @rv, $file
     }
     return @rv;
+}
+
+sub _open_fh {
+    my ($class, $file) = @_;
+    my $dir = dirname($file);
+    return if ! -d $dir and not mkpath($dir);
+
+    open my $fh, ">> $file" or return;
+    $class->getlock($fh) || return;
+    seek $fh, 0, 2;
+    return $fh;
+}
+
+sub _close_fh {
+    my ($class, $fh) = @_;
+    $class->unlock($fh) || return;
+    close $fh           or return;
+    return 1;
 }
 
 sub _escape_from_body {
