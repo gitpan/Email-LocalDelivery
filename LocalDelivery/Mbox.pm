@@ -4,7 +4,7 @@ use File::Basename;
 use Email::Simple;
 use Fcntl ':flock';
 
-our $VERSION = "1.0";
+our $VERSION = "1.03";
 
 sub deliver {
     my ($class, $mail, @files) = @_;
@@ -68,3 +68,5 @@ sub unlock {
     my ($class,$fh) = @_;
     flock ($fh, LOCK_UN);
 }
+
+1;

@@ -1,5 +1,8 @@
 Revision history for Perl extension Email::LocalDelivery.
 
+0.03  Wednesday 16th April, 2003, just after the PAUSE indexer got in touch
+        - Increment the version numbers in E::LD::{Mbox,Maildir}
+
 0.02  Wednesday 16th April, 2003
         - now depends on Email::Simple and Email::FolderType
         - changes to make code -w clean
