@@ -3,7 +3,7 @@ package Email::LocalDelivery::Maildir;
 use Email::Simple;
 use File::Path;
 
-our $VERSION = "1.03";
+our $VERSION = "1.04";
 my $maildir_time    = 0;
 my $maildir_counter = 0;
 use Sys::Hostname; (my $HOSTNAME = hostname) =~ s/\..*//;

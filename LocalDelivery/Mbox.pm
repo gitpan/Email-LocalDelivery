@@ -4,7 +4,7 @@ use File::Basename;
 use Email::Simple;
 use Fcntl ':flock';
 
-our $VERSION = "1.03";
+our $VERSION = "1.04";
 
 sub deliver {
     my ($class, $mail, @files) = @_;
@@ -13,12 +13,13 @@ sub deliver {
         my $dir = dirname($file);
         next if ! -d $dir and not mkpath($dir);
 
-        open my $fh, ">> $file"               || next;
+        open my $fh, ">> $file"               or next;
         $class->getlock($fh)                  || next;
         seek $fh, 0, 2;
+        print $fh "\n" if tell($fh) > 0;
         print $fh $class->_from_line(\$mail); # Avoid passing $mail where poss.
         print $fh $mail;
-        print $fh "\n";
+        print $fh "\n" unless $mail =~ /\n$/;
         $class->unlock($fh)                   || next;
         close $fh                             || next;
         push @rv, $file
