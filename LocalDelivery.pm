@@ -3,9 +3,10 @@ package Email::LocalDelivery;
 require 5.005_62;
 use strict;
 use warnings;
+use File::Path::Expand qw(expand_filename);
 use Email::FolderType qw(folder_type);
 use Carp;
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 =head1 NAME
 
@@ -14,7 +15,7 @@ Email::LocalDelivery - Deliver a piece of email - simply
 =head1 SYNOPSIS
 
   use Email::LocalDelivery;
-  my $delivery_agent = Email::LocalDelivery->deliver($mail, @boxes);
+  my @delivered_to = Email::LocalDelivery->deliver($mail, @boxes);
 
 =head1 DESCRIPTION
 
@@ -48,7 +49,8 @@ sub deliver {
 
     }
     my %to_deliver;
-    push @{$to_deliver{folder_type($_)}}, $_ for @boxes;
+    push @{$to_deliver{folder_type($_)}}, $_
+      for map { expand_filename $_ } @boxes;
     my @rv;
     for my $method (keys %to_deliver) {
         eval "require Email::LocalDelivery::$method";

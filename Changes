@@ -1,6 +1,12 @@
 Revision history for Perl extension Email::LocalDelivery.
 
-0.05 Thurday 24th July 2003
+0.06 Wednesday 29th October, 2003
+	http://rt.cpan.org/NoAuth/Bug.html?id=2480 quoting of From_
+	lines in bodies of messages in Mboxes
+
+	http://rt.cpan.org/NoAuth/Bug.html?id=2483 expansion of ~ elements
+
+0.05 Thursday 24th July 2003
 	- Fix bug in ::Maildir
 	- quell warning
 

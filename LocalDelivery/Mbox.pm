@@ -4,7 +4,7 @@ use File::Basename;
 use Email::Simple;
 use Fcntl ':flock';
 
-our $VERSION = "1.05";
+our $VERSION = "1.06";
 
 sub deliver {
     my ($class, $mail, @files) = @_;
@@ -18,13 +18,23 @@ sub deliver {
         seek $fh, 0, 2;
         print $fh "\n" if tell($fh) > 0;
         print $fh $class->_from_line(\$mail); # Avoid passing $mail where poss.
-        print $fh $mail;
+        print $fh $class->_escape_from_body(\$mail);
         print $fh "\n" unless $mail =~ /\n$/;
         $class->unlock($fh)                   || next;
         close $fh                             or next;
         push @rv, $file
     }
     return @rv;
+}
+
+sub _escape_from_body {
+    my ($class, $mail_r) = @_;
+
+    $$mail_r =~ /(.*?)\n\n(.*)/ or return $$mail_r;
+    my ($head, $body) = ($1, $2);
+    $body =~ s/^(From\s)/>$1/g;
+
+    return $$mail_r = "$head\n\n$body";
 }
 
 sub _from_line {

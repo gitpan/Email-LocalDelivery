@@ -4,4 +4,6 @@ LocalDelivery/Maildir.pm
 LocalDelivery/Mbox.pm
 MANIFEST
 Makefile.PL
-test.pl
+t/00compile.t
+t/mbox.t
+META.yml                                 Module meta-data (added by MakeMaker)
