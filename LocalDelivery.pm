@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Email::FolderType qw(folder_type);
 use Carp;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 NAME
 
@@ -69,6 +69,6 @@ __END__
 Copyright 2003 by Simon Cozens
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut

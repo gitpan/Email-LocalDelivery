@@ -4,7 +4,7 @@ use File::Basename;
 use Email::Simple;
 use Fcntl ':flock';
 
-our $VERSION = "1.04";
+our $VERSION = "1.05";
 
 sub deliver {
     my ($class, $mail, @files) = @_;
@@ -21,7 +21,7 @@ sub deliver {
         print $fh $mail;
         print $fh "\n" unless $mail =~ /\n$/;
         $class->unlock($fh)                   || next;
-        close $fh                             || next;
+        close $fh                             or next;
         push @rv, $file
     }
     return @rv;
@@ -35,7 +35,7 @@ sub _from_line {
 
     # The qmail way.
     return $ENV{UFLINE}.$ENV{RPLINE}.$ENV{DTLINE} if exists $ENV{UFLINE};
-    
+
     # The boring way.
     return _from_line_boring(Email::Simple->new($$mail_r));
 }

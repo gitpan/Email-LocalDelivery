@@ -3,20 +3,20 @@ package Email::LocalDelivery::Maildir;
 use Email::Simple;
 use File::Path;
 
-our $VERSION = "1.04";
+our $VERSION = "1.05";
 my $maildir_time    = 0;
 my $maildir_counter = 0;
 use Sys::Hostname; (my $HOSTNAME = hostname) =~ s/\..*//;
 
 sub deliver {
     my ($class, $mail, @files) = @_;
-    $mail = Email::Simple->new($mail) 
+    $mail = Email::Simple->new($mail)
         unless ref $mail eq "Email::Simple"; # For when we recurse
     $class->fix_lines($mail);
     $class->update_time();
 
-    my $temp_file = $class->write_temp($mail, @files) || return ();
-    
+    my $temp_file = $class->write_temp($mail, @files) or return;
+
     my @written = $class->write_links($mail, $temp_file, @files);
     unlink $temp_file;
     return @written;
@@ -30,9 +30,9 @@ sub fix_lines {
 }
 
 sub update_time {
-    if ($maildir_time != time) { 
-        $maildir_time = time; 
-        $maildir_counter = 0 
+    if ($maildir_time != time) {
+        $maildir_time = time;
+        $maildir_counter = 0
     } else { $maildir_counter++ }
 }
 
@@ -49,13 +49,14 @@ sub write_temp {
 }
 
 sub get_filename_in {
-    my ($class, $tmpdir) = @_; 
+    my ($class, $tmpdir) = @_;
     my ($msg_file, $tmppath);
-    $msg_file = join ".", ($maildir_time, 
-                          $$. "_$maildir_counter", 
-                          $HOSTNAME)
-        while -e ($tmppath="$tmpdir/$msg_file") 
-                and ++$maildir_counter;
+    do {
+        $msg_file = join ".", ($maildir_time,
+                               $$. "_$maildir_counter",
+                               $HOSTNAME)
+    } while -e ($tmppath="$tmpdir/$msg_file")
+      and ++$maildir_counter;
     return $tmppath;
 }
 

@@ -1,5 +1,9 @@
 Revision history for Perl extension Email::LocalDelivery.
 
+0.05 Thurday 24th July 2003
+	- Fix bug in ::Maildir
+	- quell warning
+
 0.04  Fri May  2 12:56:34 BST 2003
         - Handle failure to open mboxen properly
         - Insert blank line before new message in mbox.
