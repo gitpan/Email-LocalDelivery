@@ -1,0 +1,7 @@
+Changes
+LocalDelivery.pm
+LocalDelivery/Maildir.pm
+LocalDelivery/Mbox.pm
+MANIFEST
+Makefile.PL
+test.pl

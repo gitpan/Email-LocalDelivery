@@ -1,0 +1,6 @@
+Revision history for Perl extension Email::LocalDelivery.
+
+0.01  Fri Feb 21 13:26:07 2003
+	- original version; created by h2xs 1.2 with options
+		-AX -n Email::LocalDelivery
+
