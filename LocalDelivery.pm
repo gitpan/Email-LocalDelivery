@@ -6,7 +6,7 @@ use warnings;
 use File::Path::Expand qw(expand_filename);
 use Email::FolderType qw(folder_type);
 use Carp;
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 =head1 NAME
 

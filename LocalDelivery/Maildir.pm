@@ -26,7 +26,7 @@ sub fix_lines {
     my ($class, $mail) = @_;
     return if $mail->header("Lines");
     my @lines = split /\n/, $mail->body;
-    $mail->header("Lines", scalar @lines);
+    $mail->header_set("Lines", scalar @lines);
 }
 
 sub update_time {

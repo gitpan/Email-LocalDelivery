@@ -6,4 +6,5 @@ MANIFEST
 Makefile.PL
 t/00compile.t
 t/mbox.t
+t/test_mbox
 META.yml

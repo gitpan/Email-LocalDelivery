@@ -1,5 +1,8 @@
+0.08 Saturday 29th May, 2004
+	Make fix_lines not be a no-op (Toby Johnson)
+
 0.07 Friday 14th November, 2003
-	http://rt.cpan.org/NoAuth/Bug.html?id=4359 bug caused by flawed
+	http://rt.cpan.org/NoAuth/Bug.html?id=4394 bug caused by flawed
 	implementation of #2480.  the test suite is woefully poor not
 	to have caught this
 
