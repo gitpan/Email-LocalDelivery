@@ -1,11 +1,12 @@
 package Email::LocalDelivery;
-# $Id: LocalDelivery.pm,v 1.16 2004/12/17 17:16:10 cwest Exp $
 use strict;
 
 use File::Path::Expand qw(expand_filename);
 use Email::FolderType qw(folder_type);
 use Carp;
-our $VERSION = '0.09';
+
+use vars qw($VERSION);
+$VERSION = '0.20';
 
 =head1 NAME
 
@@ -46,8 +47,12 @@ sub deliver {
 
     }
     my %to_deliver;
-    push @{$to_deliver{folder_type($_)}}, $_
-      for map { expand_filename $_ } @boxes;
+
+    for my $box (@boxes) {
+      $box = expand_filename($box);
+      push @{$to_deliver{folder_type($box)}}, $box;
+    }
+
     my @rv;
     for my $method (keys %to_deliver) {
         eval "require Email::LocalDelivery::$method";
