@@ -6,7 +6,7 @@ use Fcntl ':flock';
 use Symbol qw(gensym);
 
 use vars qw($VERSION);
-$VERSION = "1.101";
+$VERSION = "1.102";
 
 sub deliver {
     my ($class, $mail, @files) = @_;
@@ -45,7 +45,7 @@ sub _close_fh {
 sub _escape_from_body {
     my ($class, $mail_r) = @_;
 
-    my $email = Email::Simple->new($mail_r);
+    my $email = Email::Simple->new($$mail_r);
 
     my $body = $email->body;
     $body =~ s/^(From\s)/>$1/gm;
