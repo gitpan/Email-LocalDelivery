@@ -1,9 +1,9 @@
 --- #YAML:1.0
 name:                Email-LocalDelivery
-version:             0.214
+version:             0.215
 abstract:            ~
 license:             perl
-generated_by:        ExtUtils::MakeMaker version 6.31
+generated_by:        ExtUtils::MakeMaker version 6.32
 distribution_type:   module
 requires:     
     Email::FolderType:             0.7
