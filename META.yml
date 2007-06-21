@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Email-LocalDelivery
-version:             0.216
+version:             0.217
 abstract:            ~
 license:             perl
 generated_by:        ExtUtils::MakeMaker version 6.32
