@@ -6,7 +6,7 @@ use Email::FolderType qw(folder_type);
 use Carp;
 
 use vars qw($VERSION);
-$VERSION = '0.215';
+$VERSION = '0.216';
 
 =head1 NAME
 
@@ -35,8 +35,10 @@ F<~you/Maildir/>)
 
 sub deliver {
     my ($class, $mail, @boxes) = @_;
+
     croak "Mail argument to deliver should just be a plain string"
         if ref $mail;
+
     if (!@boxes) {
         my $default_unixbox = ( grep { -d $_ } qw(/var/spool/mail/ /var/mail/) )[0] . getpwuid($>);
         my $default_maildir = ((getpwuid($>))[7])."/Maildir/";
@@ -73,6 +75,12 @@ __END__
 This module is maintained by the Perl Email Project
 
 L<http://emailproject.perl.org/wiki/Email::LocalDelivery>
+
+=head1 CONTACT INFO
+
+To report bugs, please use the request tracker at L<http://rt.cpan.org>.  For
+all other information, please contact the PEP mailing list (see the wiki,
+above) or Ricardo SIGNES.
 
 =head1 COPYRIGHT AND LICENSE
 
