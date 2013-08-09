@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Email::LocalDelivery::Mbox;
 {
-  $Email::LocalDelivery::Mbox::VERSION = '0.218';
+  $Email::LocalDelivery::Mbox::VERSION = '1.200';
 }
 # ABSTRACT: deliver mail to an mbox
 
@@ -126,7 +126,7 @@ Email::LocalDelivery::Mbox - deliver mail to an mbox
 
 =head1 VERSION
 
-version 0.218
+version 1.200
 
 =head1 INSTEAD...
 

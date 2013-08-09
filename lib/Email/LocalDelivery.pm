@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Email::LocalDelivery;
 {
-  $Email::LocalDelivery::VERSION = '0.218';
+  $Email::LocalDelivery::VERSION = '1.200';
 }
 # ABSTRACT: Deliver a piece of email - simply
 
@@ -57,7 +57,7 @@ Email::LocalDelivery - Deliver a piece of email - simply
 
 =head1 VERSION
 
-version 0.218
+version 1.200
 
 =head1 SYNOPSIS
 

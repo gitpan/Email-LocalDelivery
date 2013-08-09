@@ -33,7 +33,7 @@ resources:
   bugtracker: https://github.com/rjbs/Email-LocalDelivery/issues
   homepage: https://github.com/rjbs/Email-LocalDelivery
   repository: https://github.com/rjbs/Email-LocalDelivery.git
-version: 0.218
+version: 1.200
 x_Dist_Zilla:
   perl:
     version: 5.019002

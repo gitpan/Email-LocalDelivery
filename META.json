@@ -62,7 +62,7 @@
          "web" : "https://github.com/rjbs/Email-LocalDelivery"
       }
    },
-   "version" : "0.218",
+   "version" : "1.200",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.019002"

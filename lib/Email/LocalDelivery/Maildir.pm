@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Email::LocalDelivery::Maildir;
 {
-  $Email::LocalDelivery::Maildir::VERSION = '0.218';
+  $Email::LocalDelivery::Maildir::VERSION = '1.200';
 }
 # ABSTRACT: deliver mail to a Maildir
 use Email::Simple;
@@ -121,7 +121,7 @@ Email::LocalDelivery::Maildir - deliver mail to a Maildir
 
 =head1 VERSION
 
-version 0.218
+version 1.200
 
 =head1 INSTEAD...
 
