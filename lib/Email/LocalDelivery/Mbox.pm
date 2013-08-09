@@ -1,14 +1,17 @@
-package Email::LocalDelivery::Mbox;
 use strict;
+use warnings;
+package Email::LocalDelivery::Mbox;
+{
+  $Email::LocalDelivery::Mbox::VERSION = '0.218';
+}
+# ABSTRACT: deliver mail to an mbox
+
 
 use File::Path;
 use File::Basename;
 use Email::Simple 1.998;  # needed for ->header_obj
 use Fcntl ':flock';
 use Symbol qw(gensym);
-
-use vars qw($VERSION);
-$VERSION = "1.103";
 
 sub deliver {
   # The slightly convoluted method of unrolling the stack is intended to limit
@@ -112,3 +115,46 @@ sub unlock {
 }
 
 1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Email::LocalDelivery::Mbox - deliver mail to an mbox
+
+=head1 VERSION
+
+version 0.218
+
+=head1 INSTEAD...
+
+Instead, consider using L<Email::Sender::Transport::Maildir>.
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+Simon Cozens
+
+=item *
+
+Casey West <casey@geeknest.com>
+
+=item *
+
+Ricardo Signes <rjbs@cpan.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2003 by Simon Cozens.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut

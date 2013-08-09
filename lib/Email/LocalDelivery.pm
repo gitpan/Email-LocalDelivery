@@ -1,37 +1,15 @@
-package Email::LocalDelivery;
 use strict;
+use warnings;
+package Email::LocalDelivery;
+{
+  $Email::LocalDelivery::VERSION = '0.218';
+}
+# ABSTRACT: Deliver a piece of email - simply
 
-use File::Path::Expand qw(expand_filename);
-use Email::FolderType qw(folder_type);
+use File::Path::Expand 1.01 qw(expand_filename);
+use Email::FolderType 0.7 qw(folder_type);
 use Carp;
 
-use vars qw($VERSION);
-$VERSION = '0.217';
-
-=head1 NAME
-
-Email::LocalDelivery - Deliver a piece of email - simply
-
-=head1 SYNOPSIS
-
-  use Email::LocalDelivery;
-  my @delivered_to = Email::LocalDelivery->deliver($mail, @boxes);
-
-=head1 DESCRIPTION
-
-This module delivers an email to a list of mailboxes.
-
-=head1 METHODS
-
-=head2 deliver
-
-This takes an email, as a plain string, and a list of mailboxes to
-deliver that mail to. It returns the list of boxes actually written to.
-If no boxes are given, it assumes the standard Unix mailbox. (Either
-C<$ENV{MAIL}>, F</var/spool/mail/you>, F</var/mail/you>, or
-F<~you/Maildir/>)
-
-=cut
 
 sub deliver {
     my ($class, $mail, @boxes) = @_;
@@ -40,13 +18,14 @@ sub deliver {
         if ref $mail;
 
     if (!@boxes) {
-        my $default_unixbox = ( grep { -d $_ } qw(/var/spool/mail/ /var/mail/) )[0] . getpwuid($>);
-        my $default_maildir = ((getpwuid($>))[7])."/Maildir/";
+        my $default_maildir = (getpwuid($>))[7] . "/Maildir/";
+        my $default_unixbox
+          = (grep { -d $_ } qw(/var/spool/mail/ /var/mail/))[0]
+          . getpwuid($>);
 
         @boxes = $ENV{MAIL}
             || (-e $default_unixbox && $default_unixbox)
             || (-d $default_maildir."cur" && $default_maildir);
-
     }
     my %to_deliver;
 
@@ -70,25 +49,62 @@ sub deliver {
 
 __END__
 
-=head1 PERL EMAIL PROJECT
+=pod
 
-This module is maintained by the Perl Email Project
+=head1 NAME
 
-L<http://emailproject.perl.org/wiki/Email::LocalDelivery>
+Email::LocalDelivery - Deliver a piece of email - simply
 
-=head1 CONTACT INFO
+=head1 VERSION
 
-To report bugs, please use the request tracker at L<http://rt.cpan.org>.  For
-all other information, please contact the PEP mailing list (see the wiki,
-above) or Ricardo SIGNES.
+version 0.218
+
+=head1 SYNOPSIS
+
+  use Email::LocalDelivery;
+  my @delivered_to = Email::LocalDelivery->deliver($mail, @boxes);
+
+=head1 DESCRIPTION
+
+This module delivers an email to a list of mailboxes.
+
+B<Achtung!>  You might be better off looking at L<Email::Sender>, and at
+L<Email::Sender::Transport::Maildir> and L<Email::Sender::Transport::Mbox>.
+They are heavily used and more carefully monitored.
+
+=head1 METHODS
+
+=head2 deliver
+
+This takes an email, as a plain string, and a list of mailboxes to
+deliver that mail to. It returns the list of boxes actually written to.
+If no boxes are given, it assumes the standard Unix mailbox. (Either
+C<$ENV{MAIL}>, F</var/spool/mail/you>, F</var/mail/you>, or
+F<~you/Maildir/>)
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+Simon Cozens
+
+=item *
+
+Casey West <casey@geeknest.com>
+
+=item *
+
+Ricardo Signes <rjbs@cpan.org>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by Simon Cozens
+This software is copyright (c) 2003 by Simon Cozens.
 
-Copyright 2004 by Casey West
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut

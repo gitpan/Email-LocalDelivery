@@ -1,12 +1,15 @@
 use strict;
-
+use warnings;
 package Email::LocalDelivery::Maildir;
+{
+  $Email::LocalDelivery::Maildir::VERSION = '0.218';
+}
+# ABSTRACT: deliver mail to a Maildir
 use Email::Simple;
 use File::Path;
 use Symbol qw(gensym);
 
-use vars qw($VERSION);
-$VERSION = "1.101";
+
 my $maildir_time    = 0;
 my $maildir_counter = 0;
 use Sys::Hostname;
@@ -107,3 +110,46 @@ sub write_message {
 }
 
 1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Email::LocalDelivery::Maildir - deliver mail to a Maildir
+
+=head1 VERSION
+
+version 0.218
+
+=head1 INSTEAD...
+
+Instead, consider using L<Email::Sender::Transport::Maildir>.
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+Simon Cozens
+
+=item *
+
+Casey West <casey@geeknest.com>
+
+=item *
+
+Ricardo Signes <rjbs@cpan.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2003 by Simon Cozens.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
